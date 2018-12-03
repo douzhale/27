@@ -35,3 +35,10 @@ pagehelper:
     reasonable: true
     supportMethodsArguments: true
     params: count=countSql
+
+browser:
+  security:
+    loginUrl: /login.html
+    name: hh
+    type: JSON
+    passWord: 123456

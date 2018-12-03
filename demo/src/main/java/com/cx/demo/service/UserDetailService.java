@@ -26,6 +26,6 @@ public class UserDetailService implements UserDetailsService {
 
         String passWord=passwordEncoder.encode("123456");
         logger.info("加密的密码是="+passWord);
-        return new User(username,passWord, AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
+        return new User(username,passWord, AuthorityUtils.commaSeparatedStringToAuthorityList(username));
     }
 }
