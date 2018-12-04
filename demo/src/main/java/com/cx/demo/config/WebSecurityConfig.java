@@ -1,5 +1,6 @@
 package com.cx.demo.config;
 
+import com.cx.demo.filter.ValidateCodeFilter;
 import com.cx.demo.handler.AuthenticationFailureHandlerImpl;
 import com.cx.demo.handler.AuthenticationSuccessHandlerImpl;
 import com.cx.demo.properties.BrowserProperties;
@@ -13,6 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -29,21 +31,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     private BrowserProperties browserProperties;
 
     @Autowired
-    AuthenticationFailureHandlerImpl authenticationFailureHandler;
+    private AuthenticationFailureHandlerImpl authenticationFailureHandler;
 
     @Autowired
-    AuthenticationSuccessHandlerImpl authenticationSuccessHandler;
+    private AuthenticationSuccessHandlerImpl authenticationSuccessHandler;
+
+    @Autowired
+    private ValidateCodeFilter validateCodeFilter;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.formLogin()
+        http.addFilterBefore(validateCodeFilter,UsernamePasswordAuthenticationFilter.class)
+                .formLogin()
                 .loginPage("/auth")
                 .loginProcessingUrl("/user/login")
                 .successHandler(authenticationSuccessHandler)
                 .failureHandler(authenticationFailureHandler)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/auth",browserProperties.getLoginUrl()).permitAll()
+                .antMatchers("/auth",browserProperties.getLoginUrl(),"/code/image").permitAll()
                 .anyRequest()
                 .authenticated()
                  .and()

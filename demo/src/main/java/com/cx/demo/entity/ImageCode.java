@@ -3,10 +3,13 @@
  */
 package com.cx.demo.entity;
 
+import org.springframework.stereotype.Component;
+
 import java.awt.image.BufferedImage;
 import java.time.LocalDateTime;
 
 
+@Component("imageCode")
 public class ImageCode  {
 
 	/**
@@ -55,9 +58,7 @@ public class ImageCode  {
 	 * @param time   过期时间设置
 	 * @return
 	 */
-	public  ImageCode getLatestImageCode(BufferedImage bufferedImage,String code,Integer time){
-		return new ImageCode(bufferedImage,code,LocalDateTime.now().plusSeconds(time));
-	}
+
 
 	public ImageCode(BufferedImage bufferedImage, String code, LocalDateTime localDateTime) {
 		this.bufferedImage = bufferedImage;
@@ -66,5 +67,12 @@ public class ImageCode  {
 	}
 
 	public ImageCode() {
+	}
+
+	public ImageCode(BufferedImage bufferedImage,String code,Integer time){
+		this.bufferedImage = bufferedImage;
+		this.code = code;
+		this.localDateTime = LocalDateTime.now().plusSeconds(time);
+
 	}
 }
