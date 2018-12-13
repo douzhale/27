@@ -23,7 +23,6 @@ public class UserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
         String passWord=passwordEncoder.encode("123456");
         logger.info("加密的密码是="+passWord);
         return new User(username,passWord, AuthorityUtils.commaSeparatedStringToAuthorityList(username));

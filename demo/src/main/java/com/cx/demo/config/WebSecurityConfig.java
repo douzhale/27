@@ -39,6 +39,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     @Autowired
     private ValidateCodeFilter validateCodeFilter;
 
+    @Autowired
+    private SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.addFilterBefore(validateCodeFilter,UsernamePasswordAuthenticationFilter.class)
@@ -54,6 +57,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 .authenticated()
                  .and()
                 .csrf()
-                .disable();
+                .disable()
+                .apply(smsCodeAuthenticationSecurityConfig);
     }
 }
