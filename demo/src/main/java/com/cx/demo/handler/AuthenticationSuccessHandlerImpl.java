@@ -35,7 +35,7 @@ public class AuthenticationSuccessHandlerImpl extends SavedRequestAwareAuthentic
             response.setStatus(HttpServletResponse.SC_OK);
             response.setCharacterEncoding("UTF-8");
             response.setContentType("application/json");
-            response.getWriter().print(objectMapper.writeValueAsString(LoginUser.class));
+            response.getWriter().print(objectMapper.writeValueAsString(authentication));
         } else {
             super.onAuthenticationSuccess(request, response, authentication);
         }

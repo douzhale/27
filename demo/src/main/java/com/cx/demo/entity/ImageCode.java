@@ -55,7 +55,7 @@ public class ImageCode  {
 	 * 设置过期时间
 	 * @param bufferedImage
 	 * @param code
-	 * @param time   过期时间设置
+	 * @param
 	 * @return
 	 */
 
@@ -74,5 +74,12 @@ public class ImageCode  {
 		this.code = code;
 		this.localDateTime = LocalDateTime.now().plusSeconds(time);
 
+	}
+
+	public boolean isExpired(ImageCode imageCode){
+		if(LocalDateTime.now().getSecond()-imageCode.getLocalDateTime().getSecond()>0){
+			return false;
+		}
+		return  true;
 	}
 }

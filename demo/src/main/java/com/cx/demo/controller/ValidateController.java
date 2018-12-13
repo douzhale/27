@@ -34,7 +34,7 @@ public class ValidateController {
     @GetMapping("/code/image")
     public void creatCode(HttpServletRequest request, HttpServletResponse response){
         ImageCode imageCode = generate();
-        sessionStrategy.setAttribute(new ServletWebRequest(request),SESSION_KEY,imageCode.getCode());
+        sessionStrategy.setAttribute(new ServletWebRequest(request),SESSION_KEY,imageCode);
         try {
             ImageIO.write(imageCode.getBufferedImage(),"JPG",response.getOutputStream());
         } catch (IOException e) {
