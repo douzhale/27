@@ -71,7 +71,7 @@ public class ValidateCodeFilter extends OncePerRequestFilter {
             throw new ValidateCodeException("验证码不存在");
         }
 
-        if(imageCode.isExpired(imageCode)){
+        if(imageCode.isExpired()){
             sessionStrategy.removeAttribute(request,ValidateController.SESSION_KEY);
             throw new ValidateCodeException("验证码已经超时");
         }

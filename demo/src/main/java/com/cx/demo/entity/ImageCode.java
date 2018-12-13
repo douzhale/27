@@ -76,10 +76,7 @@ public class ImageCode  {
 
 	}
 
-	public boolean isExpired(ImageCode imageCode){
-		if(LocalDateTime.now().getSecond()-imageCode.getLocalDateTime().getSecond()>0){
-			return false;
-		}
-		return  true;
+	public boolean isExpired(){
+		return LocalDateTime.now().isAfter(localDateTime);
 	}
 }
