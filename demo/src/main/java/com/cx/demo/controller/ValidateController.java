@@ -2,6 +2,9 @@ package com.cx.demo.controller;
 
 
 import com.cx.demo.entity.ImageCode;
+import com.cx.demo.entity.SmsCode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.web.HttpSessionSessionStrategy;
 import org.springframework.social.connect.web.SessionStrategy;
@@ -24,9 +27,13 @@ import java.util.Random;
 @RestController
 public class ValidateController {
 
+    private Logger logger= LoggerFactory.getLogger(getClass());
+
     private SessionStrategy sessionStrategy=new HttpSessionSessionStrategy();
 
     public static final String SESSION_KEY = "SESSION_KEY_IMAGE_CODE";
+
+    public static final String SMS_SESSION_KEY="SESSION_KEY_SMS_CODE";
 
 
 
@@ -41,6 +48,16 @@ public class ValidateController {
             e.printStackTrace();
 
         }
+    }
+
+
+
+    @GetMapping("/code/smsCode")
+    public void creatSmsCode(HttpServletRequest request, HttpServletResponse response){
+        String code = getSmsCode();
+        SmsCode smsCode = new SmsCode(code, 120);
+        sessionStrategy.setAttribute(new ServletWebRequest(request),SMS_SESSION_KEY,smsCode);
+        logger.info("手机验证码为:"+code);
     }
 
 
@@ -99,5 +116,15 @@ public class ValidateController {
         int b = fc + random.nextInt(bc - fc);
         return new Color(r, g, b);
     }
+
+
+
+
+    private String getSmsCode(){
+        return ((int)(Math.random()*9+1)*1000)+"";
+    }
+
+
+
 
 }

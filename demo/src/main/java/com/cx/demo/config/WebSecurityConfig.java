@@ -44,20 +44,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception {
         ValidateCodeFilter validateCodeFilter =new ValidateCodeFilter();
         validateCodeFilter.setAuthenticationFailureHandler(authenticationFailureHandler);
+        http.apply(smsCodeAuthenticationSecurityConfig);
         http.addFilterBefore(validateCodeFilter,UsernamePasswordAuthenticationFilter.class)
                 .formLogin()
                 .loginPage("/auth")
-                .loginProcessingUrl("/user/login")
+//                .loginProcessingUrl("/user/login")
+                .loginProcessingUrl("/login")
                 .successHandler(authenticationSuccessHandler)
                 .failureHandler(authenticationFailureHandler)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/auth",browserProperties.getLoginUrl(),"/code/image").permitAll()
+                .antMatchers("/auth",browserProperties.getLoginUrl(),"/code/image","/code/smsCode").permitAll()
                 .anyRequest()
                 .authenticated()
                  .and()
                 .csrf()
-                .disable()
-                .apply(smsCodeAuthenticationSecurityConfig);
+                .disable();
     }
 }

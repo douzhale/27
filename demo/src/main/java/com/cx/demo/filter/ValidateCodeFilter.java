@@ -1,11 +1,11 @@
 package com.cx.demo.filter;
 
-import com.alibaba.druid.util.StringUtils;
 import com.cx.demo.ValidateCodeException;
 import com.cx.demo.bean.MyAuthenticationServiceException;
 import com.cx.demo.controller.ValidateController;
 import com.cx.demo.entity.ImageCode;
 import com.cx.demo.handler.AuthenticationFailureHandlerImpl;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.web.HttpSessionSessionStrategy;
 import org.springframework.social.connect.web.SessionStrategy;
@@ -76,7 +76,7 @@ public class ValidateCodeFilter extends OncePerRequestFilter {
             throw new ValidateCodeException("验证码已经超时");
         }
 
-        if(StringUtils.equals(imageCode.getCode(),imgCode)){
+        if(!StringUtils.equals(imageCode.getCode(),imgCode)){
             throw new ValidateCodeException("验证码输入错误");
         }
         sessionStrategy.removeAttribute(request,ValidateController.SESSION_KEY);
