@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class SmsCodeAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
-    public static final String SPRING_SECURITY_FORM_MOBILE_KEY = "mobilePhone";
+    public static final String SPRING_SECURITY_FORM_MOBILE_KEY = "smsCode";
 
     private boolean postOnly = true;
 

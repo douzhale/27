@@ -1,7 +1,10 @@
 package com.cx.demo.entity;
 
+import org.springframework.stereotype.Component;
+
 import java.time.LocalDateTime;
 
+@Component("smsCode")
 public class SmsCode {
 
     private String mobilePhone;

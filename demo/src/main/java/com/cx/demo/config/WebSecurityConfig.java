@@ -1,5 +1,6 @@
 package com.cx.demo.config;
 
+import com.cx.demo.filter.SmsCodeFilter;
 import com.cx.demo.filter.ValidateCodeFilter;
 import com.cx.demo.handler.AuthenticationFailureHandlerImpl;
 import com.cx.demo.handler.AuthenticationSuccessHandlerImpl;
@@ -43,8 +44,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         ValidateCodeFilter validateCodeFilter =new ValidateCodeFilter();
+        SmsCodeFilter smsCodeFilter=new SmsCodeFilter();
+        smsCodeFilter.setAuthenticationFailureHandler(authenticationFailureHandler);
         validateCodeFilter.setAuthenticationFailureHandler(authenticationFailureHandler);
         http.addFilterBefore(validateCodeFilter,UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(smsCodeFilter,UsernamePasswordAuthenticationFilter.class)
                 .formLogin()
                 .loginPage("/auth")
 //                .loginProcessingUrl("/user/login")
