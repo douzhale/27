@@ -44,7 +44,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception {
         ValidateCodeFilter validateCodeFilter =new ValidateCodeFilter();
         validateCodeFilter.setAuthenticationFailureHandler(authenticationFailureHandler);
-        http.apply(smsCodeAuthenticationSecurityConfig);
         http.addFilterBefore(validateCodeFilter,UsernamePasswordAuthenticationFilter.class)
                 .formLogin()
                 .loginPage("/auth")
@@ -59,6 +58,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 .authenticated()
                  .and()
                 .csrf()
-                .disable();
+                .disable().apply(smsCodeAuthenticationSecurityConfig);
     }
 }

@@ -31,7 +31,7 @@ public class SmsCodeAuthenticationFilter extends AbstractAuthenticationProcessin
 
 
     public SmsCodeAuthenticationFilter() {
-        super(new AntPathRequestMatcher("/login", "POST"));
+        super(new AntPathRequestMatcher("/login/smsCode", "POST"));
     }
 
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
