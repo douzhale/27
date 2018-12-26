@@ -5,7 +5,7 @@ import com.cx.demo.bean.MyAuthenticationServiceException;
 import com.cx.demo.controller.ValidateController;
 import com.cx.demo.entity.ImageCode;
 import com.cx.demo.handler.AuthenticationFailureHandlerImpl;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.web.HttpSessionSessionStrategy;
 import org.springframework.social.connect.web.SessionStrategy;

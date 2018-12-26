@@ -4,6 +4,7 @@ import com.cx.demo.SmsCodeAuthenticationToken;
 import com.cx.demo.ValidateCodeException;
 import com.cx.demo.controller.ValidateController;
 import com.cx.demo.entity.ImageCode;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -13,7 +14,6 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.social.connect.web.HttpSessionSessionStrategy;
 import org.springframework.social.connect.web.SessionStrategy;
 import org.springframework.util.Assert;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.context.request.ServletWebRequest;
@@ -71,7 +71,7 @@ public class SmsCodeAuthenticationFilter extends AbstractAuthenticationProcessin
     public void validate(ServletWebRequest request) throws ServletRequestBindingException {
         ImageCode imageCode=(ImageCode)sessionStrategy.getAttribute(request, ValidateController.SESSION_KEY);//session里面获取的
         String imgCode = ServletRequestUtils.getStringParameter(request.getRequest(), "imgCode");//请求传入的参数
-        if(org.apache.commons.lang.StringUtils.isEmpty(imgCode)){
+        if(StringUtils.isEmpty(imgCode)){
             throw new ValidateCodeException("验证码不能为空");
         }
 
@@ -84,7 +84,7 @@ public class SmsCodeAuthenticationFilter extends AbstractAuthenticationProcessin
             throw new ValidateCodeException("验证码已经超时");
         }
 
-        if(!org.apache.commons.lang.StringUtils.equals(imageCode.getCode(),imgCode)){
+        if(!StringUtils.equals(imageCode.getCode(),imgCode)){
             throw new ValidateCodeException("验证码输入错误");
         }
         sessionStrategy.removeAttribute(request,ValidateController.SESSION_KEY);

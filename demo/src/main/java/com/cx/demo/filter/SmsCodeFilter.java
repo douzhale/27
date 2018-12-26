@@ -5,7 +5,7 @@ import com.cx.demo.controller.ValidateController;
 import com.cx.demo.entity.ImageCode;
 import com.cx.demo.entity.SmsCode;
 import com.cx.demo.handler.AuthenticationFailureHandlerImpl;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.social.connect.web.HttpSessionSessionStrategy;
 import org.springframework.social.connect.web.SessionStrategy;
 import org.springframework.stereotype.Component;
@@ -68,7 +68,7 @@ public class SmsCodeFilter  extends OncePerRequestFilter {
         if(!StringUtils.equals(smsCode.getSmsCode(),code)){
             throw new ValidateCodeException("验证码输入错误");
         }
-        sessionStrategy.removeAttribute(request,ValidateController.SESSION_KEY);
+        sessionStrategy.removeAttribute(request,ValidateController.SMS_SESSION_KEY);
     }
 
     public AuthenticationFailureHandlerImpl getAuthenticationFailureHandler() {

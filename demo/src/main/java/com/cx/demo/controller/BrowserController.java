@@ -56,7 +56,6 @@ public class BrowserController {
     @ResponseBody
     public ExceptionMessage getUrl(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
         SavedRequest request = requestCache.getRequest(httpServletRequest, httpServletResponse);
-       if(request!=null && request.getHeaderValues("Authentication").size()!=0){
            String redirectUrl = request.getRedirectUrl();
            try {
                if (StringUtils.endsWithIgnoreCase(redirectUrl, ".html")) {
@@ -68,7 +67,7 @@ public class BrowserController {
            }catch (IOException e) {
                e.getMessage();
            }
-       }
+
        exceptionMessage.setContent("登录有问题，请验证身份");
        return exceptionMessage;
     }
