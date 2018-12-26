@@ -42,3 +42,10 @@ browser:
     name: hh
     type: JSON
     passWord: 123456
+
+img:
+  security:
+    width: 100
+    height: 50
+    time: 30
+    url: /usr/*

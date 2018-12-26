@@ -3,6 +3,7 @@ package com.cx.demo.controller;
 
 import com.cx.demo.entity.ImageCode;
 import com.cx.demo.entity.SmsCode;
+import com.cx.demo.properties.ImageCodeProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,9 @@ public class ValidateController {
     public static final String SESSION_KEY = "SESSION_KEY_IMAGE_CODE";
 
     public static final String SMS_SESSION_KEY="SMS_CODE";
+
+    @Autowired
+    private ImageCodeProperties imageCodeProperties;
 
 
 
