@@ -6,30 +6,36 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.stereotype.Component;
 
 
-@EnableConfigurationProperties
-@ConfigurationProperties(prefix = "img.security")
+@Component
 public class ImageCodeProperties {
 
-    private String width="200";
-    private String height="100";
-    private String time="60";
+    private Integer width=200;
+    private Integer height=100;
+    private Integer time=60;
     private String url="/usr/a";
+    private Integer num=6;
 
-    public String getWidth() {
+    public Integer getWidth() {
         return width;
     }
 
-    public void setWidth(String width) {
+    public void setWidth(Integer width) {
         this.width = width;
     }
 
+    public Integer getHeight() {
+        return height;
+    }
 
+    public void setHeight(Integer height) {
+        this.height = height;
+    }
 
-    public String getTime() {
+    public Integer getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(Integer time) {
         this.time = time;
     }
 
@@ -41,11 +47,11 @@ public class ImageCodeProperties {
         this.url = url;
     }
 
-    public String getHeight() {
-        return height;
+    public Integer getNum() {
+        return num;
     }
 
-    public void setHeight(String height) {
-        this.height = height;
+    public void setNum(Integer num) {
+        this.num = num;
     }
 }

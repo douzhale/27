@@ -4,11 +4,13 @@ package com.cx.demo.controller;
 import com.cx.demo.entity.ImageCode;
 import com.cx.demo.entity.SmsCode;
 import com.cx.demo.properties.ImageCodeProperties;
+import com.cx.demo.properties.SecurityProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.web.HttpSessionSessionStrategy;
 import org.springframework.social.connect.web.SessionStrategy;
+import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.ServletWebRequest;
@@ -36,15 +38,15 @@ public class ValidateController {
 
     public static final String SMS_SESSION_KEY="SMS_CODE";
 
-    @Autowired
-    private ImageCodeProperties imageCodeProperties;
+
+    private SecurityProperties securityProperties= new SecurityProperties();
 
 
 
 
     @GetMapping("/code/image")
     public void creatCode(HttpServletRequest request, HttpServletResponse response){
-        ImageCode imageCode = generate();
+        ImageCode imageCode = generate(request);
         sessionStrategy.setAttribute(new ServletWebRequest(request),SESSION_KEY,imageCode);
         try {
             ImageIO.write(imageCode.getBufferedImage(),"JPG",response.getOutputStream());
@@ -55,10 +57,9 @@ public class ValidateController {
     }
 
 
-
-    private ImageCode generate() {
-        int width = 64;
-        int height = 32;
+    private ImageCode generate(HttpServletRequest request) {
+        int width=ServletRequestUtils.getIntParameter(request,"width",securityProperties.getCode().getImage().getWidth());
+        int height = ServletRequestUtils.getIntParameter(request,"height",securityProperties.getCode().getImage().getWidth());
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 
         Graphics g = image.getGraphics();
@@ -78,7 +79,7 @@ public class ValidateController {
         }
 
         String sRand = "";
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < securityProperties.getCode().getImage().getNum(); i++) {
             String rand = String.valueOf(random.nextInt(10));
             sRand += rand;
             g.setColor(new Color(20 + random.nextInt(110), 20 + random.nextInt(110), 20 + random.nextInt(110)));

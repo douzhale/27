@@ -43,9 +43,12 @@ browser:
     type: JSON
     passWord: 123456
 
-img:
+cx:
   security:
-    width: 100
-    height: 50
-    time: 30
-    url: /usr/*
+    code:
+      img:
+       width: 100
+       height: 50
+       time: 30
+       url: /usr/*
+       num: 6
