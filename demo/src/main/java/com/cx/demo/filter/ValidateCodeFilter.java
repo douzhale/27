@@ -43,7 +43,7 @@ public class ValidateCodeFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
-      if(StringUtils.equals("/login",httpServletRequest.getRequestURI())&&StringUtils.equalsIgnoreCase(httpServletRequest.getMethod(),"post")){
+      if(StringUtils.equals("/user/login",httpServletRequest.getRequestURI())&&StringUtils.equalsIgnoreCase(httpServletRequest.getMethod(),"post")){
           try {
               // 1. 进行验证码的校验
               validate(new ServletWebRequest(httpServletRequest));

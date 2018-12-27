@@ -5,15 +5,15 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Component;
 
-@Component
+
 @EnableConfigurationProperties
 @ConfigurationProperties(prefix = "img.security")
 public class ImageCodeProperties {
 
-    private String width;
-    private String height;
-    private String time;
-    private String url;
+    private String width="200";
+    private String height="100";
+    private String time="60";
+    private String url="/usr/a";
 
     public String getWidth() {
         return width;
